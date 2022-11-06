@@ -14,8 +14,6 @@ public class Top250Data {
 
     @Override
     public String toString() {
-        return "Top250Data{" +
-                "Items=" + items.toString() +
-                '}';
+        return "Items=" + items.toString();
     }
 }

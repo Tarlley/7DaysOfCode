@@ -19,8 +19,7 @@ public class Top250DataDetail {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "id='" + id + '\'' +
+        return "{id='" + id + '\'' +
                 ", rank='" + rank + '\'' +
                 ", title='" + title + '\'' +
                 ", fullTitle='" + fullTitle + '\'' +
