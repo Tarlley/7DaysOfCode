@@ -1,13 +1,33 @@
 package br.com.devtarlley.sevendaysofcode;
 
+import br.com.devtarlley.sevendaysofcode.model.Top250Data;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SevenDaysOfCodeApplicationTests {
 
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate testRestTemplate;
+
     @Test
-    void contextLoads() {
+    void shouldReturnTop250Filmes(){
+
+        final ResponseEntity<Top250Data> forEntity = this.testRestTemplate.getForEntity("http://localhost:" + port + "/filmes/top250", Top250Data.class);
+        assertEquals(HttpStatus.OK,forEntity.getStatusCode());
+        assertNotNull(forEntity.getBody());
     }
 
 }

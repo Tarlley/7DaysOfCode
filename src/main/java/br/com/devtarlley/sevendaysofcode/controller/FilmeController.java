@@ -14,9 +14,8 @@ public class FilmeController {
     @Autowired
     private FilmeService filmeService;
 
-    @GetMapping
+    @GetMapping("/top250")
     public ResponseEntity<?> top250Filmes(){
-        filmeService.top250Filmes();
-        return ResponseEntity.ok().build();
+        return filmeService.top250Filmes();
     }
 }
