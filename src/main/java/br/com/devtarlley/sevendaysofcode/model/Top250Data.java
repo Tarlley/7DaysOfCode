@@ -8,7 +8,7 @@ import java.util.List;
 @Getter @Setter
 public class Top250Data {
 
-    private List<Top250DataDetail> items ;
+    private List<Filme> items ;
 
     private String errorMessage ;
 

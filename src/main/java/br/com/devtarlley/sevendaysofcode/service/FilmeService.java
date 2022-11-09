@@ -21,7 +21,6 @@ public class FilmeService {
     private static final String URL = ConstantsUtils.URLBASE + "/Top250Movies/";
 
     public ResponseEntity<Top250Data> top250Filmes() {
-
-       return restTemplate.getForEntity(URL + apiKey, Top250Data.class);
+        return restTemplate.getForEntity(URL + apiKey, Top250Data.class);
     }
 }
