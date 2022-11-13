@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter @Setter
-public class Top250Data {
+public class FilmeList {
 
     private List<Filme> items ;
 

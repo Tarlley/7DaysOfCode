@@ -1,7 +1,6 @@
 package br.com.devtarlley.sevendaysofcode;
 
-import br.com.devtarlley.sevendaysofcode.model.Top250Data;
-import org.junit.jupiter.api.Assertions;
+import br.com.devtarlley.sevendaysofcode.model.FilmeList;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +24,7 @@ class SevenDaysOfCodeApplicationTests {
     @Test
     void shouldReturnTop250Filmes(){
 
-        final ResponseEntity<Top250Data> forEntity = this.testRestTemplate.getForEntity("http://localhost:" + port + "/filmes/top250", Top250Data.class);
+        final ResponseEntity<FilmeList> forEntity = this.testRestTemplate.getForEntity("http://localhost:" + port + "/filmes/top250", FilmeList.class);
         assertEquals(HttpStatus.OK,forEntity.getStatusCode());
         assertNotNull(forEntity.getBody());
     }
