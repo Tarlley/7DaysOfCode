@@ -6,12 +6,14 @@ import br.com.devtarlley.sevendaysofcode.util.ConstantsUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,6 +26,8 @@ public class FilmeService {
 
     @Value("${security.apiKey}")
     private String apiKey ;
+
+    private List<Filme> favoritos = new ArrayList<>();
 
     private static final String URL = ConstantsUtils.URLBASE + "/Top250Movies/";
     ResponseEntity<FilmeList> forEntity = null;
@@ -55,5 +59,23 @@ public class FilmeService {
             }
 
         return response;
+    }
+
+    public ResponseEntity<?> saveFavoritos(String filmeId) {
+        if (forEntity == null){
+            forEntity = restTemplate.getForEntity(URL + apiKey, FilmeList.class);
+        }
+        if (favoritos.stream().anyMatch(filme -> filme.id().equalsIgnoreCase(filmeId))){
+            return new ResponseEntity<>("Favorito já cadastrado",HttpStatus.BAD_REQUEST);
+        }
+        try {
+            favoritos.add(forEntity.getBody().getItems().stream().filter(filme -> filme.id().equalsIgnoreCase(filmeId)).findFirst().orElse(null));
+            return new ResponseEntity<>("Favorito adicionado com sucesso",HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("Erro ao adicionar favorido",HttpStatus.BAD_REQUEST);
+        }
+    }
+    public ResponseEntity<?> favoritos() {
+        return new ResponseEntity<>(favoritos,HttpStatus.OK);
     }
 }

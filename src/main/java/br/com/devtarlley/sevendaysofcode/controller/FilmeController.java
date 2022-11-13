@@ -24,4 +24,14 @@ public class FilmeController {
     public ResponseEntity<?> htmlOfTop250(){
         return filmeService.htmlOfTop250();
     }
+
+    @PostMapping("/favoritos/{filmeId}")
+    public ResponseEntity<?> saveFavoritos(@PathVariable("filmeId") String filmeId){
+        return filmeService.saveFavoritos(filmeId);
+    }
+
+    @GetMapping("/favoritos")
+    public ResponseEntity<?>favoritos(){
+        return filmeService.favoritos();
+    }
 }
